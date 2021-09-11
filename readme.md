@@ -1,4 +1,4 @@
-# TP Logico 2021 - Mi Cursada Universitaria
+# TP 1 SSL 2021 
 
 ## Enunciado
 
