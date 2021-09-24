@@ -66,21 +66,3 @@ int EsPalabra(const char *cadena)
         e = tt[e][Columna(cadena[i])];
     return e == 2;
 }
-
-// int inicio = 1;
-// int acepta = 3, acepta2 = 4, acepta3 = 5, acepta4 = 7;
-// int noacepta = 6, noacepta2 = 2;
-// int actual = inicio;
-// int longitud = 0;
-// char palabra[100];
-
-// int fin = 0;
-// int contador = 0;
-
-// printf("ingrese la cadena: ");
-// scanf("%s", palabra);
-
-// while (fin == 0)
-// {
-
-// };
