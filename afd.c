@@ -8,12 +8,25 @@ int main()
     printf("ingrese una cadena \n");
     scanf("%s", s1);
 
-    if (EsPalabra(s1))
+    if (!verifica(s1))
+        printf("La cadena que ingreso tiene caracteres invalidos \n");
+    else
+
+        if (EsPalabra(s1))
         printf("La cadena %s pertenece al lenguaje", s1);
     else
         printf("La cadena %s NO pertenece al lenguaje", s1);
 
     return 0;
+}
+
+int verifica(char *s1)
+{
+    unsigned i;
+    for (i = 0; s1[i] != '\0'; i++)
+        if (!(isdigit(s1[i]) || s1[i] == '+' || s1[i] == '-' || s1[i] == 'a' || s1[i] == 'b' || s1[i] == 'c' || s1[i] == 'd' || s1[i] == 'e' || s1[i] == 'f'))
+            return 0;
+    return 1;
 }
 
 int Columna(int c)
