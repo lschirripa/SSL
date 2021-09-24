@@ -1,0 +1,1 @@
+int EsPalabra(const char *cadena)
