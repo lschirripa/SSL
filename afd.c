@@ -4,14 +4,14 @@
 
 int main()
 {
-    char s1[50] = "";
+    char s1[100];
     printf("ingrese una cadena \n");
     scanf("%s", s1);
 
     if (EsPalabra(s1))
-        printf("La cadena s1 pertenece al lenguaje");
+        printf("La cadena %s pertenece al lenguaje", s1);
     else
-        printf("La cadena s1 no pertenece al lenguaje");
+        printf("La cadena %s NO pertenece al lenguaje", s1);
 
     return 0;
 }
