@@ -13,18 +13,46 @@ int main()
     else
 
         if (EsPalabra(s1))
-        printf("La cadena %s pertenece al lenguaje", s1);
+    {
+        printf("La cadena %s pertenece al lenguaje ", s1);
+        if (verificaOCTALoDECIMAL(s1))
+            printf("y ademas, puede ser un octal o un decimal");
+        else
+
+            if (verificaHEXA(s1))
+            printf("y ademas, es un hexagesimal");
+        else
+            printf("y ademas, es un decimal");
+    }
     else
         printf("La cadena %s NO pertenece al lenguaje", s1);
 
     return 0;
 }
 
+int verificaOCTALoDECIMAL(char *s1)
+{
+    unsigned i;
+    for (i = 0; s1[i] != '\0'; i++)
+        if (!(s1[i] == '0' || s1[i] == '1' || s1[i] == '2' || s1[i] == '3' || s1[i] == '4' || s1[i] == '5' || s1[i] == '6' || s1[i] == '7'))
+            return 0;
+    return 1;
+}
+
+int verificaHEXA(char *s1)
+{
+    unsigned i;
+    for (i = 0; s1[i] != '\0'; i++)
+        if (!(isalpha(s1[i]) || isdigit(s1[i])))
+            return 0;
+    return 1;
+}
+
 int verifica(char *s1)
 {
     unsigned i;
     for (i = 0; s1[i] != '\0'; i++)
-        if (!(isdigit(s1[i]) || s1[i] == '+' || s1[i] == '-' || s1[i] == 'a' || s1[i] == 'b' || s1[i] == 'c' || s1[i] == 'd' || s1[i] == 'e' || s1[i] == 'f'))
+        if (!(isdigit(s1[i]) || s1[i] == '+' || s1[i] == '-' || s1[i] == 'A' || s1[i] == 'B' || s1[i] == 'C' || s1[i] == 'D' || s1[i] == 'E' || s1[i] == 'F'))
             return 0;
     return 1;
 }
