@@ -10,4 +10,4 @@ int Columna(int c);
 
 int verificaHEXA(char *s1);
 
-int EsPalabra(const char *cadena);
+int EsPalabra(const char *);
