@@ -1,0 +1,11 @@
+que es thompson
+cuales son las diferencias entre un AFD y un AFN,cual es programable
+me pregunto sobre el tp2.
+Sobre los tipos de analizadores sintácticos
+los tokens que existen de C. 
+Tompson. 
+El automata de pila. 
+La tabla de simbolos. 
+La función unget
+Que autómata es programando si hacia falta que sea minimo
+Y sobre análisis semantico

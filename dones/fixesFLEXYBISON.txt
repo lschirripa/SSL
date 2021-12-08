@@ -1,0 +1,9 @@
+- cambio en la funcion que detecta ERROR_LEXICO
+- nueva gramatica que te avisa que se debe iniciar con la palabra INICIO
+- contador lineNumber, para especificar en que linea ocurrio
+el error, tiene una falla cuando se usa el leng>32, pero bueno
+- tuve que ocultar la deteccion de palabras reservadas porq
+sino era mucho spam y quilobo con el lineNumber
+- ademas agregue como adicional una rutina que verifique si
+las constantes declaradas son >100, si no lo son, tira un error
+y verifica la linea
