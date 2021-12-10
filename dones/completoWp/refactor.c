@@ -6,68 +6,41 @@ int columna1(char);
 void automata1(char *);
 int columna2(char);
 void automata2(char *);
-void mensajeError(void);
+void error(void);
 int numero(char);
 
 int main()
 {
-    int numeroMenu;
-    char *cadenaPrincipal;
-    printf("escoja una opcion: 1.SCANNER 2.CALCULADORA\n");
-    scanf("%d", &numeroMenu);
-    printf("%d\n", numeroMenu);
+    int numeroOpcion;
+    char *cadenaPrincipal = malloc(50 * sizeof(char));
+    printf("elija una opcion: \n1.SCANNER \n2.CALCULADORA\n");
+    scanf("%d", &numeroOpcion);
 
-    switch (numeroMenu)
+    if (numeroOpcion == 1)
     {
-    case 1:
-        printf("ingrese una cadena");
+        printf("ingrese una cadena\n");
         scanf("%s", cadenaPrincipal);
-        break;
-
-    case 2:
+        automata1(cadenaPrincipal);
+    }
+    else if (numeroOpcion == 2)
+    {
         printf("ingrese un calculo");
         scanf("%s", cadenaPrincipal);
-        break;
-    default:
-        mensajeError();
-    }
-    /*
-    if (argc == 3)
-    {
-        if (argv[1][0] == '1')
-        {
-            automata1(argv[2]);
-            return 0;
-        }
-        else if (argv[1][0] == '2')
-        {
-            automata2(argv[2]);
-            return 0;
-        }
-        else
-        {
-            mensajeError();
-        }
     }
     else
     {
-        mensajeError();
-        return 0;
+        printf("ERROR! debe ingresar solamente 1 o 2 para invocar al scanner o a la calculadora respectivamente\n");
+        system("pause");
     }
-    */
 }
 
-void mensajeError(void)
+void error(void)
 {
-    printf("Debe ingresar los parametros de manera correcta. El orden es el siguiente:\n");
-    printf("Primer parametro: (1) en caso de querer validar una cadena de numeros separados por el caracter & ");
-    printf("o (2) en caso de querer resolver una operacion simple con enteros decimales\n");
-    printf("Segundo parametro: (cadena de numeros separados por el caracter &) en caso de querer validar una cadena de numeros separados por el caracter & ");
-    printf("o (cadena de una operacion simple con enteros decimales) en caso de querer resolver una operacion simple con enteros decimales\n");
 }
 
 void automata1(char *cadena)
 {
+
     int tt[11][9] = {{1, 5, 2, 2, 4, 4, 0, 4, 15},
                      {4, 2, 2, 2, 4, 4, 0, 4, 14},
                      {4, 2, 2, 2, 4, 4, 3, 4, 11},
@@ -83,8 +56,8 @@ void automata1(char *cadena)
     int i = 0;
     char caracter;
     int contadorDecimal = 0, contadorOctal = 0, contadorHexa = 0;
-
     caracter = cadena[i];
+
     do
     {
         estado = tt[estado][columna1(caracter)];
@@ -128,6 +101,7 @@ void automata1(char *cadena)
     printf("%d numeros decimales\n", contadorDecimal);
     printf("%d numeros octales\n", contadorOctal);
     printf("%d numeros hexadecimales", contadorHexa);
+    system("pause");
     return;
 }
 
