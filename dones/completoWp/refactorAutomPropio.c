@@ -41,56 +41,52 @@ void error(void)
 void automata1(char *cadena)
 {
 
-    int tt[11][9] = {{
-        1,
-        5,
-        2,
-        2,
-    }};
+    int tt[8][7] = {
+        {3, 9, 1, 7, 7, 9, 9},
+        {9, 9, 9, 2, 2, 9, 9},
+        {2, 9, 9, 2, 2, 9, 0},
+        {6, 4, 9, 9, 6, 9, 9},
+        {5, 9, 9, 5, 5, 5, 9},
+        {5, 9, 9, 5, 5, 5, 0},
+        {6, 9, 9, 9, 6, 9, 0},
+        {7, 9, 9, 7, 7, 9, 0},
+
+    };
     int estado = 0;
     int i = 0;
     char caracter;
     int contadorDecimal = 0, contadorOctal = 0, contadorHexa = 0;
     caracter = cadena[i];
 
-    do
+    while (caracter != '\0')
     {
         estado = tt[estado][columna1(caracter)];
-        if (estado == 3)
+        if (estado == 2)
         {
             contadorDecimal += 1;
+            printf("1decimal");
         }
-        else if (estado == 7)
+        if (estado == 7)
+        {
+            contadorDecimal += 1;
+            printf("1decimal");
+        }
+        else if (estado == 6)
         {
             contadorOctal += 1;
+            printf("1octal");
         }
-        else if (estado == 10)
+        else if (estado == 5)
         {
             contadorHexa += 1;
+            printf("1hexa");
         }
-        else if (estado == 4)
+        else if (estado == 9)
         {
             printf("Hubo un error lexico en la cadena\n");
             return;
         }
         caracter = cadena[++i];
-    } while (estado != 11 && estado != 12 && estado != 13 && estado != 14 && estado != 15);
-    switch (estado)
-    {
-    case 11:
-        contadorDecimal += 1;
-        break;
-    case 12:
-        contadorOctal += 1;
-        break;
-    case 13:
-        contadorHexa += 1;
-        break;
-    case 14:
-        printf("Hubo un error lexico en la cadena\n");
-        return;
-    case 15:
-        break;
     }
     printf("No hubo ningun error lexico y se reconocieron:\n");
     printf("%d numeros decimales\n", contadorDecimal);
@@ -105,34 +101,34 @@ int columna1(char caracter)
     switch (caracter)
     {
     case '+':
-        return 0;
+        return 2;
         break;
     case '-':
-        return 0;
+        return 2;
         break;
     case '0':
-        return 1;
+        return 0;
         break;
     case '1':
-        return 2;
+        return 4;
         break;
     case '2':
-        return 2;
+        return 4;
         break;
     case '3':
-        return 2;
+        return 4;
         break;
     case '4':
-        return 2;
+        return 4;
         break;
     case '5':
-        return 2;
+        return 4;
         break;
     case '6':
-        return 2;
+        return 4;
         break;
     case '7':
-        return 2;
+        return 4;
         break;
     case '8':
         return 3;
@@ -141,25 +137,25 @@ int columna1(char caracter)
         return 3;
         break;
     case 'A':
-        return 4;
+        return 5;
         break;
     case 'B':
-        return 4;
+        return 5;
         break;
     case 'C':
-        return 4;
+        return 5;
         break;
     case 'D':
-        return 4;
+        return 5;
         break;
     case 'E':
-        return 4;
+        return 5;
         break;
     case 'F':
-        return 4;
+        return 5;
         break;
     case 'x':
-        return 5;
+        return 1;
         break;
     case '&':
         return 6;
