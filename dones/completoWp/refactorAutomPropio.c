@@ -24,8 +24,9 @@ int main()
     }
     else if (numeroOpcion == 2)
     {
-        printf("ingrese un calculo");
+        printf("ingrese un calculo\n");
         scanf("%s", cadenaPrincipal);
+        automata2(cadenaPrincipal);
     }
     else
     {
@@ -88,10 +89,10 @@ void automata1(char *cadena)
         }
         caracter = cadena[++i];
     }
-    printf("No hubo ningun error lexico y se reconocieron:\n");
+    printf("No hubo ningun error lexico i se reconocieron:\n");
     printf("%d numeros decimales\n", contadorDecimal);
     printf("%d numeros octales\n", contadorOctal);
-    printf("%d numeros hexadecimales", contadorHexa);
+    printf("%d numeros hexadecimales\n", contadorHexa);
     system("pause");
     return;
 }
@@ -160,11 +161,8 @@ int columna1(char caracter)
     case '&':
         return 6;
         break;
-    case '\0':
-        return 8;
-        break;
     default:
-        return 7;
+        return 9;
         break;
     }
 }
@@ -189,14 +187,15 @@ void automata2(char *cadena)
     for (j = 0; j < 30; j++)
         numeros[j] = 0;
 
-    caracter = cadena[i];
-    do
+    caracter = cadena[i]; // 1. Se lee el primer carácter de la cadena
+    do                    // a. Se actualiza el estado.
+
     {
-        estado = tt[estado][columna2(caracter)];
+        estado = tt[estado][columna2(caracter)]; //a. Se actualiza el estado.
 
         if (estado == 1)
         {
-            numeros[cantidadNumeros] = numeros[cantidadNumeros] * 10 + numero(caracter);
+            numeros[cantidadNumeros] = numeros[cantidadNumeros] * 10 + numero(caracter); // el estado es 1, significa qué se acaba de leer un número (qué puede ser parte de un número más grande), por lo tanto se transforma ese carácter enun número, se desplaza al número más grande i se suman ambos números.
         }
         else if (estado == 2)
         {
@@ -220,7 +219,19 @@ void automata2(char *cadena)
             printf("Se detecto un error lexico en la cadena\n");
             return;
         }
+        printf("caracter: %c \n", caracter);
+        printf("cantidadNumeros: %d \n", cantidadNumeros);
+        for (int i = 0; i <= cantidadNumeros; i++)
+        {
+            printf("numeros[%d]: %d \n", i, numeros[i]);
+        }
+        for (int i = 0; i <= cantidadNumeros; i++)
+        {
+            printf("operaciones[%d]: %c \n", i, operaciones[i]);
+        }
+        system("pause");
         caracter = cadena[++i];
+
     } while (estado != 4 && estado != 5);
     switch (estado)
     {
@@ -230,6 +241,18 @@ void automata2(char *cadena)
         cantidadNumeros += 1;
         j = 0;
         cantOperacionesOriginal = cantidadNumeros - 1;
+        printf("caracter: %c \n", caracter);
+        printf("cantidadNumeros: %d \n", cantidadNumeros);
+        for (int i = 0; i < 5; i++)
+        {
+            printf("numeros[%d]: %d \n", i, numeros[i]);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            printf("operaciones[%d]: %c \n", i, operaciones[i]);
+        }
+        system("pause");
+
         do
         {
             j = 0;
@@ -237,6 +260,7 @@ void automata2(char *cadena)
             {
                 j++;
                 contador++;
+                printf("contador: %d", contador);
             }
             if (operaciones[j] == '*')
             {
