@@ -97,14 +97,45 @@ void automata2(char *cadena)
         j = 0;
         cantOperacionesOriginal = cantidadNumeros - 1;
 
+        printf("caracter: %c \n", caracter);
+        for (int i = 0; i < cantidadNumeros; i++)
+        {
+            printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
+        }
+        for (int i = 0; i < cantidadNumeros; i++)
+        {
+            printf("operaciones[%d]: %c \n", i, operaciones[i]);
+        }
+        printf("\n cantidadDeOperacionesOriginal: %d \n", cantOperacionesOriginal);
+        printf("\n cantidadNumeros: %d \n", cantidadNumeros);
+        printf("\n j = %d \n", j);
+        printf("\n index = %d \n", index);
+        printf("\n contador = %d \n", contador);
+
         do
         {
             j = 0;
             while (operaciones[j] != '*' && contador < cantOperacionesOriginal)
             {
                 j++;
-                contador++;
+                contador++; //CAMBIO A LO ULTIMO
             }
+            printf("\n $$$$$$$$$$$   WHILE OPERACIONES[i] != *  $$$$$$$$$$$ \n");
+            printf("\n cantidadDeOperacionesOriginal: %d \n", cantOperacionesOriginal);
+            printf("\n cantidadNumeros: %d \n", cantidadNumeros);
+            printf("\n j = %d \n", j);
+            printf("\n index = %d \n", index);
+            printf("\n contador = %d \n", contador);
+            printf("caracter: %c \n", caracter);
+            for (int i = 0; i < cantidadNumeros; i++)
+            {
+                printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
+            }
+            for (int i = 0; i < cantidadNumeros; i++)
+            {
+                printf("operaciones[%d]: %c \n", i, operaciones[i]);
+            }
+
             if (operaciones[j] == '*')
             {
                 index = j;
@@ -122,7 +153,23 @@ void automata2(char *cadena)
                     j++;
                 }
                 cantidadNumeros = cantidadNumeros - 1;
+                printf("\n $$$$$$$$$$$   ENCONTRO UN *  $$$$$$$$$$$ \n");
+                printf("\n cantidadDeOperacionesOriginal: %d \n", cantOperacionesOriginal);
+                printf("\n cantidadNumeros: %d \n", cantidadNumeros);
+                printf("\n j = %d \n", j);
+                printf("\n index = %d \n", index);
+                printf("\n contador = %d \n", contador);
+                printf("caracter: %c \n", caracter);
+                for (int i = 0; i < cantidadNumeros; i++)
+                {
+                    printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
+                }
+                for (int i = 0; i < cantidadNumeros; i++)
+                {
+                    printf("operaciones[%d]: %c \n", i, operaciones[i]);
+                }
             }
+
             contador++;
         } while (contador < cantOperacionesOriginal);
         j = 0;
@@ -202,3 +249,7 @@ int transformarAscii(char caracter)
 //     printf("operaciones[%d]: %c \n", i, operaciones[i]);
 // }
 // system("pause");
+
+void debugger()
+{
+}
