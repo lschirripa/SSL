@@ -219,17 +219,7 @@ void automata2(char *cadena)
             printf("Se detecto un error lexico en la cadena\n");
             return;
         }
-        printf("caracter: %c \n", caracter);
-        printf("cantidadNumeros: %d \n", cantidadNumeros);
-        for (int i = 0; i <= cantidadNumeros; i++)
-        {
-            printf("numeros[%d]: %d \n", i, numeros[i]);
-        }
-        for (int i = 0; i <= cantidadNumeros; i++)
-        {
-            printf("operaciones[%d]: %c \n", i, operaciones[i]);
-        }
-        system("pause");
+
         caracter = cadena[++i];
 
     } while (estado != 4 && estado != 5);
@@ -241,17 +231,6 @@ void automata2(char *cadena)
         cantidadNumeros += 1;
         j = 0;
         cantOperacionesOriginal = cantidadNumeros - 1;
-        printf("caracter: %c \n", caracter);
-        printf("cantidadNumeros: %d \n", cantidadNumeros);
-        for (int i = 0; i < 5; i++)
-        {
-            printf("numeros[%d]: %d \n", i, numeros[i]);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            printf("operaciones[%d]: %c \n", i, operaciones[i]);
-        }
-        system("pause");
 
         do
         {
@@ -260,7 +239,7 @@ void automata2(char *cadena)
             {
                 j++;
                 contador++;
-                printf("contador: %d", contador);
+                printf("\n j: %d , contador: %d \n", j, contador);
             }
             if (operaciones[j] == '*')
             {

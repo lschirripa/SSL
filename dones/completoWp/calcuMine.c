@@ -43,10 +43,11 @@ void automata2(char *cadena)
     int estado = 0;
     int i = 0;
     char caracter;
-    int numerosDelCalculo[30];
+    int numerosDelCalculo[50];
     int cantidadNumeros = 0;
-    char operaciones[29];
-    int cantOperacionesOriginal = 0, contador = 0;
+    char operaciones[49];
+    int cantOperacionesOriginal = 0;
+    int contador = 0;
     int resultado = 0;
     int j = 0, index = 0;
     int proxSigno = 1;
@@ -91,22 +92,10 @@ void automata2(char *cadena)
 
     if (caracter == '\0')
     {
-        printf("Cadena sin error lexico\n");
         numerosDelCalculo[cantidadNumeros] = numerosDelCalculo[cantidadNumeros] * proxSigno;
         cantidadNumeros += 1;
         j = 0;
         cantOperacionesOriginal = cantidadNumeros - 1;
-        printf("caracter: %c \n", caracter);
-        printf("cantidadNumeros: %d \n", cantidadNumeros);
-        for (int i = 0; i < 5; i++)
-        {
-            printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            printf("operaciones[%d]: %c \n", i, operaciones[i]);
-        }
-        system("pause");
 
         do
         {
@@ -115,7 +104,6 @@ void automata2(char *cadena)
             {
                 j++;
                 contador++;
-                printf("contador: %d", contador);
             }
             if (operaciones[j] == '*')
             {
@@ -201,3 +189,16 @@ int transformarAscii(char caracter)
 {
     return (caracter - '0');
 }
+
+/// comment debug
+// printf("caracter: %c \n", caracter);
+// printf("cantidadNumeros: %d \n", cantidadNumeros);
+// for (int i = 0; i < 5; i++)
+// {
+//     printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
+// }
+// for (int i = 0; i < 5; i++)
+// {
+//     printf("operaciones[%d]: %c \n", i, operaciones[i]);
+// }
+// system("pause");

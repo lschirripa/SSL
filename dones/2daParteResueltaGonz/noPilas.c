@@ -1,4 +1,4 @@
-/ ------------para el 2do punto-- -------------- /
+/ ------------para el ` punto-- -------------- /
 
     int VerificarExpresion(char *expresion, int *res)
 {
