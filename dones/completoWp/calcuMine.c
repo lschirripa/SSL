@@ -7,6 +7,9 @@ int columna2(char);
 void automata2(char *);
 void error(void);
 int transformarAscii(char);
+void aplicarSigno(int *, int *, int numerosDelCalculo[], char operaciones[]);
+void aplicarSigno2(int *, int *, int numerosDelCalculo[], char operaciones[], char *);
+void aplicarUltSigno(int *, int *, int numerosDelCalculo[], char operaciones[], int *, int *);
 
 int main()
 {
@@ -69,17 +72,11 @@ void automata2(char *cadena)
         {
             if (caracter == '-')
             {
-                numerosDelCalculo[cantidadNumeros] = numerosDelCalculo[cantidadNumeros] * proxSigno;
-                proxSigno = -1;
-                operaciones[cantidadNumeros] = '+';
-                cantidadNumeros += 1;
+                aplicarSigno(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones);
             }
             else
             {
-                numerosDelCalculo[cantidadNumeros] = numerosDelCalculo[cantidadNumeros] * proxSigno;
-                proxSigno = 1;
-                operaciones[cantidadNumeros] = caracter;
-                cantidadNumeros += 1;
+                aplicarSigno2(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones, &caracter);
             }
         }
         else if (estado == 3)
@@ -92,10 +89,8 @@ void automata2(char *cadena)
 
     if (caracter == '\0')
     {
-        numerosDelCalculo[cantidadNumeros] = numerosDelCalculo[cantidadNumeros] * proxSigno;
-        cantidadNumeros += 1;
-        j = 0;
-        cantOperacionesOriginal = cantidadNumeros - 1;
+
+        aplicarUltSigno(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones, &j, &cantOperacionesOriginal);
 
         printf("caracter: %c \n", caracter);
         for (int i = 0; i < cantidadNumeros; i++)
@@ -250,6 +245,26 @@ int transformarAscii(char caracter)
 // }
 // system("pause");
 
-void debugger()
+void aplicarSigno(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros])
 {
+    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * (*proxSigno);
+    *proxSigno = -1;
+    operaciones[*cantidadNumeros] = '+';
+    *cantidadNumeros += 1;
+}
+
+void aplicarSigno2(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros], char *caracter)
+{
+    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * (*proxSigno);
+    *proxSigno = 1;
+    operaciones[*cantidadNumeros] = *caracter;
+    *cantidadNumeros += 1;
+}
+
+void aplicarUltSigno(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros], int *j, int *cantOperacionesOriginal)
+{
+    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * *proxSigno;
+    *cantidadNumeros += 1;
+    *j = 0;
+    *cantOperacionesOriginal = *cantidadNumeros - 1;
 }
