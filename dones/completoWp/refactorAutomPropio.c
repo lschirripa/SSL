@@ -37,6 +37,7 @@ int main()
 
 void error(void)
 {
+    printf("error lexico en la cadena ingresada\n");
 }
 
 void automata1(char *cadena)

@@ -34,10 +34,6 @@ int main()
     }
 }
 
-void error(void)
-{
-}
-
 void automata1(char *cadena)
 {
 
