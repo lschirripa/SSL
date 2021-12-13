@@ -61,10 +61,13 @@ void automata1(char *cadena)
     caracter = cadena[i];
     int tamanioCadena = strlen(cadena);
 
-    for (int y = 0; y <= (tamanioCadena); y++)
+    while (caracter != '\0')
     {
-        printf("\ntamanio cadena:%d\n", tamanioCadena);
+
         estado = tt[estado][columna1(caracter)];
+        printf("\ntamanio cadena:%d\n", tamanioCadena);
+        printf("\n caracter:%c\n", caracter);
+        printf("\n estado:%d\n", estado);
         if (estado == 2)
         {
             contadorDecimal += 1;
@@ -90,7 +93,7 @@ void automata1(char *cadena)
             printf("Hubo un error lexico en la cadena\n");
             return;
         }
-        else if (caracter == '&' || caracter == '\0')
+        else if (caracter == '&')
         {
             if (contadorDecimal > 0)
             {
@@ -111,6 +114,25 @@ void automata1(char *cadena)
         }
 
         caracter = cadena[++i];
+    }
+    if (caracter == '\0')
+    {
+        if (contadorDecimal > 0)
+        {
+            contador1++;
+            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+        }
+
+        else if (contadorOctal > 0)
+        {
+            contador2++;
+            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+        }
+        else if (contadorHexa > 0)
+        {
+            contador3++;
+            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+        }
     }
 
     printf("No hubo ningun error lexico y se reconocieron:\n");
