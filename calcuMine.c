@@ -58,7 +58,7 @@ void automata1(char *cadena)
     int estado = 0;
     int i = 0;
     char caracter;
-    int contadorDecimal = 0, contadorOctal = 0, contadorHexa = 0, contador1 = 0, contador2 = 0, contador3 = 0;
+    int contadorE27 = 0, contadorE6 = 0, contadorE5 = 0, contadorDecimal = 0, contadorOctal = 0, contadorHexa = 0;
     caracter = cadena[i];
     int tamanioCadena = strlen(cadena);
 
@@ -70,46 +70,42 @@ void automata1(char *cadena)
         //  printf("\n estado:%d\n", estado);
         if (estado == 2)
         {
-            contadorDecimal += 1;
-            printf("1decimal");
+            contadorE27 += 1;
         }
         else if (estado == 7)
         {
-            contadorDecimal += 1;
-            printf("1decimal");
+            contadorE27 += 1;
         }
         else if (estado == 6)
         {
-            contadorOctal += 1;
-            printf("1octal");
+            contadorE6 += 1;
         }
         else if (estado == 5)
         {
-            contadorHexa += 1;
-            printf("1hexa");
+            contadorE5 += 1;
         }
         else if (estado == 9)
         {
-            printf("Hubo un error lexico en la cadena\n");
+            printf("Error lexico en la cadena ingresada\n");
             return;
         }
         else if (caracter == '&')
         {
-            if (contadorDecimal > 0)
+            if (contadorE27 > 0)
             {
-                contador1++;
-                resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+                contadorDecimal++;
+                resetContadores(&contadorE27, &contadorE6, &contadorE5);
             }
 
-            else if (contadorOctal > 0)
+            else if (contadorE6 > 0)
             {
-                contador2++;
-                resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+                contadorOctal++;
+                resetContadores(&contadorE27, &contadorE6, &contadorE5);
             }
-            else if (contadorHexa > 0)
+            else if (contadorE5 > 0)
             {
-                contador3++;
-                resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+                contadorHexa++;
+                resetContadores(&contadorE27, &contadorE6, &contadorE5);
             }
         }
 
@@ -117,28 +113,28 @@ void automata1(char *cadena)
     }
     if (caracter == '\0')
     {
-        if (contadorDecimal > 0)
+        if (contadorE27 > 0)
         {
-            contador1++;
-            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+            contadorDecimal++;
+            resetContadores(&contadorE27, &contadorE6, &contadorE5);
         }
 
-        else if (contadorOctal > 0)
+        else if (contadorE6 > 0)
         {
-            contador2++;
-            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+            contadorOctal++;
+            resetContadores(&contadorE27, &contadorE6, &contadorE5);
         }
-        else if (contadorHexa > 0)
+        else if (contadorE5 > 0)
         {
-            contador3++;
-            resetContadores(&contadorDecimal, &contadorOctal, &contadorHexa);
+            contadorHexa++;
+            resetContadores(&contadorE27, &contadorE6, &contadorE5);
         }
     }
 
-    printf("No hubo ningun error lexico y se reconocieron:\n");
-    printf("%d numeros decimales\n", contador1);
-    printf("%d numeros octales\n", contador2);
-    printf("%d numeros hexadecimales\n", contador3);
+    printf("se reconocieron:\n");
+    printf("%d numeros decimales\n", contadorDecimal);
+    printf("%d numeros octales\n", contadorOctal);
+    printf("%d numeros hexadecimales\n", contadorHexa);
     system("pause");
     return;
 }
@@ -213,11 +209,11 @@ int columna1(char caracter)
     }
 }
 
-void resetContadores(int *contadorDecimal, int *contadorOctal, int *contadorHexa)
+void resetContadores(int *contadorE27, int *contadorE6, int *contadorE5)
 {
-    *contadorDecimal = 0;
-    *contadorOctal = 0;
-    *contadorHexa = 0;
+    *contadorE27 = 0;
+    *contadorE6 = 0;
+    *contadorE5 = 0;
 }
 
 void automata2(char *cadena)
