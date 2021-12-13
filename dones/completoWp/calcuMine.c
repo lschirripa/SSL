@@ -54,6 +54,7 @@ void automata1(char *cadena)
         {7, 9, 9, 7, 7, 9, 0},
 
     };
+
     int estado = 0;
     int i = 0;
     char caracter;
@@ -65,9 +66,8 @@ void automata1(char *cadena)
     {
 
         estado = tt[estado][columna1(caracter)];
-        printf("\ntamanio cadena:%d\n", tamanioCadena);
-        printf("\n caracter:%c\n", caracter);
-        printf("\n estado:%d\n", estado);
+        // printf("\n caracter:%c\n", caracter);
+        //  printf("\n estado:%d\n", estado);
         if (estado == 2)
         {
             contadorDecimal += 1;
