@@ -281,7 +281,7 @@ void calculadora(char *cadena)
                 j++;
                 contador++; //CAMBIO A LO ULTIMO
             }
-            printf("\n $$$$$$$$$$$   WHILE OPERACIONES[i] != *  $$$$$$$$$$$ \n");
+            //printf("\n $$$$$$$$$$$   WHILE OPERACIONES[i] != *  $$$$$$$$$$$ \n");
             //            debug(&cantOperaciones, &posicionNum, &j, &aux, &contador, &caracter, numerosDelCalculo, operaciones);
 
             if (operaciones[j] == '*')
@@ -301,7 +301,7 @@ void calculadora(char *cadena)
                     j++;
                 }
                 posicionNum = posicionNum - 1;
-                printf("\n $$$$$$$$$$$   ENCONTRO UN *  $$$$$$$$$$$ \n");
+                //printf("\n $$$$$$$$$$$   ENCONTRO UN *  $$$$$$$$$$$ \n");
                 //              debug(&cantOperaciones, &posicionNum, &j, &aux, &contador, &caracter, numerosDelCalculo, operaciones);
             }
 
