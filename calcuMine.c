@@ -3,9 +3,9 @@
 #include <string.h>
 
 int columna1(char);
-void automata1(char *);
+void scanner(char *);
 int columna2(char);
-void automata2(char *);
+void calculadora(char *);
 void error(void);
 void resetContadores(int *, int *, int *);
 int transformarAscii(char);
@@ -25,13 +25,13 @@ int main()
     {
         printf("ingrese una cadena\n");
         scanf("%s", cadenaPrincipal);
-        automata1(cadenaPrincipal);
+        scanner(cadenaPrincipal);
     }
     else if (numeroOpcion == 2)
     {
         printf("ingrese un calculo\n");
         scanf("%s", cadenaPrincipal);
-        automata2(cadenaPrincipal);
+        calculadora(cadenaPrincipal);
     }
     else
     {
@@ -40,7 +40,7 @@ int main()
     }
 }
 
-void automata1(char *cadena)
+void scanner(char *cadena)
 {
 
     int tt[8][7] = {
@@ -216,7 +216,7 @@ void resetContadores(int *contadorE27, int *contadorE6, int *contadorE5)
     *contadorE5 = 0;
 }
 
-void automata2(char *cadena)
+void calculadora(char *cadena)
 {
     int tt[4][4] = {{1, 3, 3, 3},
                     {1, 2, 2, 2},
@@ -227,15 +227,15 @@ void automata2(char *cadena)
     int i = 0;
     char caracter;
     int numerosDelCalculo[50];
-    int cantidadNumeros = 0;
+    int posicionNum = 0;
     char operaciones[49];
-    int cantOperacionesOriginal = 0;
+    int cantOperaciones = 0;
     int contador = 0;
     int resultado = 0;
-    int j = 0, index = 0;
-    int proxSigno = 1;
+    int j = 0, aux = 0;
+    int signoSiguiente = 1;
 
-    for (j = 0; j < 30; j++)
+    for (j = 0; j < 50; j++)
         numerosDelCalculo[j] = 0;
 
     caracter = cadena[i];
@@ -246,17 +246,17 @@ void automata2(char *cadena)
 
         if (estado == 1)
         {
-            numerosDelCalculo[cantidadNumeros] = numerosDelCalculo[cantidadNumeros] * 10 + transformarAscii(caracter);
+            numerosDelCalculo[posicionNum] = numerosDelCalculo[posicionNum] * 10 + transformarAscii(caracter);
         }
         else if (estado == 2)
         {
             if (caracter == '-')
             {
-                aplicarSigno(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones);
+                aplicarSigno(&posicionNum, &signoSiguiente, numerosDelCalculo, operaciones);
             }
             else
             {
-                aplicarSigno2(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones, &caracter);
+                aplicarSigno2(&posicionNum, &signoSiguiente, numerosDelCalculo, operaciones, &caracter);
             }
         }
         else if (estado == 3)
@@ -270,48 +270,48 @@ void automata2(char *cadena)
     if (caracter == '\0')
     {
 
-        aplicarUltSigno(&cantidadNumeros, &proxSigno, numerosDelCalculo, operaciones, &j, &cantOperacionesOriginal);
-        //       debug(&cantOperacionesOriginal, &cantidadNumeros, &j, &index, &contador, &caracter, numerosDelCalculo, operaciones);
+        aplicarUltSigno(&posicionNum, &signoSiguiente, numerosDelCalculo, operaciones, &j, &cantOperaciones);
+        //       debug(&cantOperaciones, &posicionNum, &j, &aux, &contador, &caracter, numerosDelCalculo, operaciones);
 
         do
         {
             j = 0;
-            while (operaciones[j] != '*' && contador < cantOperacionesOriginal)
+            while (operaciones[j] != '*' && contador < cantOperaciones)
             {
                 j++;
                 contador++; //CAMBIO A LO ULTIMO
             }
             printf("\n $$$$$$$$$$$   WHILE OPERACIONES[i] != *  $$$$$$$$$$$ \n");
-            //            debug(&cantOperacionesOriginal, &cantidadNumeros, &j, &index, &contador, &caracter, numerosDelCalculo, operaciones);
+            //            debug(&cantOperaciones, &posicionNum, &j, &aux, &contador, &caracter, numerosDelCalculo, operaciones);
 
             if (operaciones[j] == '*')
             {
-                index = j;
-                while (j < (cantidadNumeros - 2))
+                aux = j;
+                while (j < (posicionNum - 2))
                 {
-                    operaciones[j] = operaciones[j + 1];
+                    operaciones[j] = operaciones[j + 1]; //LA POSICION DONDE ESTA EL *, VA A SER REEMPLAZADA POR SU SIGUIENTE
                     j++;
                 }
-                j = index;
-                numerosDelCalculo[j] = numerosDelCalculo[j] * numerosDelCalculo[j + 1];
+                j = aux;
+                numerosDelCalculo[j] = numerosDelCalculo[j] * numerosDelCalculo[j + 1]; //j SIGUE SIENDO LA POSICION DEL PRIMER NUMERO A MULTIPLICAR, Y LO MULTIPLICA POR SU SIGUIENTE
                 j++;
-                while (j < (cantidadNumeros - 1))
+                while (j < (posicionNum - 1))
                 {
-                    numerosDelCalculo[j] = numerosDelCalculo[j + 1];
+                    numerosDelCalculo[j] = numerosDelCalculo[j + 1]; // LO MISMO CON LOS NUMEROS, EL 2D0 NUMERO A MULTIPLICAR, LO TRANSFORMA A SU SIGUIENTE
                     j++;
                 }
-                cantidadNumeros = cantidadNumeros - 1;
+                posicionNum = posicionNum - 1;
                 printf("\n $$$$$$$$$$$   ENCONTRO UN *  $$$$$$$$$$$ \n");
-                //              debug(&cantOperacionesOriginal, &cantidadNumeros, &j, &index, &contador, &caracter, numerosDelCalculo, operaciones);
+                //              debug(&cantOperaciones, &posicionNum, &j, &aux, &contador, &caracter, numerosDelCalculo, operaciones);
             }
 
             contador++;
-        } while (contador < cantOperacionesOriginal);
+        } while (contador < cantOperaciones);
         j = 0;
         resultado = numerosDelCalculo[0];
-        while (j < (cantidadNumeros - 1))
+        while (j < (posicionNum - 1))
         {
-            resultado = resultado + numerosDelCalculo[j + 1];
+            resultado = resultado + numerosDelCalculo[j + 1]; //VA SUMANDO EL V[0] CON SUS SIGUIENTES HASTA EL POSICION NUM CORRECTO
             j++;
         }
         printf("Resultado = %d\n", resultado);
@@ -362,7 +362,7 @@ int columna2(char caracter)
         return 0;
         break;
     default:
-        return 4;
+        return 3;
         break;
     }
 }
@@ -372,45 +372,45 @@ int transformarAscii(char caracter)
     return (caracter - '0');
 }
 
-void debug(int *cantOperacionesOriginal, int *cantidadNumeros, int *j, int *index, int *contador, char *caracter, int numerosDelCalculo[], char operaciones[])
+void debug(int *cantOperaciones, int *posicionNum, int *j, int *aux, int *contador, char *caracter, int numerosDelCalculo[], char operaciones[])
 {
 
-    printf("\n cantidadDeOperacionesOriginal: %d \n", *cantOperacionesOriginal);
-    printf("\n cantidadNumeros: %d \n", *cantidadNumeros);
+    printf("\n cantidadDeOperacionesOriginal: %d \n", *cantOperaciones);
+    printf("\n posicionNum: %d \n", *posicionNum);
     printf("\n j = %d \n", j);
-    printf("\n index = %d \n", *index);
+    printf("\n aux = %d \n", *aux);
     printf("\n contador = %d \n", *contador);
     printf("caracter: %c \n", *caracter);
-    for (int i = 0; i < *cantidadNumeros; i++)
+    for (int i = 0; i < *posicionNum; i++)
     {
         printf("numerosDelCalculo[%d]: %d \n", i, numerosDelCalculo[i]);
     }
-    for (int i = 0; i < *cantidadNumeros; i++)
+    for (int i = 0; i < *posicionNum; i++)
     {
         printf("operaciones[%d]: %c \n", i, operaciones[i]);
     }
 }
 
-void aplicarSigno(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros])
+void aplicarSigno(int *posicionNum, int *signoSiguiente, int numerosDelCalculo[*posicionNum], char operaciones[*posicionNum])
 {
-    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * (*proxSigno);
-    *proxSigno = -1;
-    operaciones[*cantidadNumeros] = '+';
-    *cantidadNumeros += 1;
+    numerosDelCalculo[*posicionNum] = numerosDelCalculo[*posicionNum] * (*signoSiguiente);
+    *signoSiguiente = -1;
+    operaciones[*posicionNum] = '+';
+    *posicionNum += 1;
 }
 
-void aplicarSigno2(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros], char *caracter)
+void aplicarSigno2(int *posicionNum, int *signoSiguiente, int numerosDelCalculo[*posicionNum], char operaciones[*posicionNum], char *caracter)
 {
-    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * (*proxSigno);
-    *proxSigno = 1;
-    operaciones[*cantidadNumeros] = *caracter;
-    *cantidadNumeros += 1;
+    numerosDelCalculo[*posicionNum] = numerosDelCalculo[*posicionNum] * (*signoSiguiente);
+    *signoSiguiente = 1;
+    operaciones[*posicionNum] = *caracter;
+    *posicionNum += 1;
 }
 
-void aplicarUltSigno(int *cantidadNumeros, int *proxSigno, int numerosDelCalculo[*cantidadNumeros], char operaciones[*cantidadNumeros], int *j, int *cantOperacionesOriginal)
+void aplicarUltSigno(int *posicionNum, int *signoSiguiente, int numerosDelCalculo[*posicionNum], char operaciones[*posicionNum], int *j, int *cantOperaciones)
 {
-    numerosDelCalculo[*cantidadNumeros] = numerosDelCalculo[*cantidadNumeros] * *proxSigno;
-    *cantidadNumeros += 1;
+    numerosDelCalculo[*posicionNum] = numerosDelCalculo[*posicionNum] * *signoSiguiente;
+    *posicionNum += 1;
     *j = 0;
-    *cantOperacionesOriginal = *cantidadNumeros - 1;
+    *cantOperaciones = *posicionNum - 1;
 }
